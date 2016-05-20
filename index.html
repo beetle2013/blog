@@ -233,8 +233,8 @@
             
               
                 
-                <a class="post-title-link" href="/blog/2016/05/16/测试/" itemprop="url">
-                  测试
+                <a class="post-title-link" href="/blog/2016/05/20/blog-on-github-with-hexo-and-NexT/" itemprop="url">
+                  blog-on-github-with-hexo-and-NexT
                 </a>
               
             
@@ -247,8 +247,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-16T16:01:34+08:00" content="2016-05-16">
-              2016-05-16
+            <time itemprop="dateCreated" datetime="2016-05-20T14:35:37+08:00" content="2016-05-20">
+              2016-05-20
             </time>
           </span>
 
@@ -277,7 +277,123 @@
       
         
           
-            <p>欢迎来到走向前端。</p>
+            <p>###前言<br>作为一名前端er,搭建个人博客有很多种选择。曾经我注册过CSDN之类的blog服务商，申请过自己的域名和使用wordpress组建blog,如今我选择Hexo+github的组合。不得不说，如今的方式可以让我更专注于写作，向大家推荐。</p>
+<p>###安装hexo<br>hexo使用是的Node.js，所以生成blog的速度很快，同时它支持我最喜欢的Markdown语法，<a href="https://hexo.io/zh-cn/" target="_blank" rel="external">hexo</a>的安装非常简单，照着官网的说明就可以。    </p>
+<pre><code>1. $ npm install hexo-cli -g  全局安装hexo
+2. $ hexo init blog  在当前目录生成blog目录，hexo已安装入其中
+3. $ npm install  在blog目录下运行，加入依赖
+</code></pre><p>之后日常是这样的</p>
+<ul>
+<li>新建 <code>$ hexo new [layout] &lt;title&gt;</code></li>
+<li>写作  blog\source_posts 下的md文件</li>
+<li>生成 <code>$ hexo generate</code> blog\public目录为生成的blog站点</li>
+<li>本地运行 <code>$ hexo server</code> 想预览的话</li>
+</ul>
+<p>###布署至github<br>github作为全世界最受欢迎的git仓库，吸引了全球的开源爱好者在此托管代码，同时它提供一个非常优秀的服务，那就是github.io的网页</p>
+<ol>
+<li>注册github帐号，如果还没有的话</li>
+<li>新建一个Repository,比如blog</li>
+<li>在blog的Settings里找到 Launch automatic page generator 根据提示生成站点。</li>
+<li>git clone blog到本地 blog\public目录下</li>
+<li>git add public 下的所有文件</li>
+</ol>
+<p>初始站点的内容可以不去理会，因为它会被替换。<br><strong>非常关键的一点是github只会把你gh-pages分支下的文件发布到github.io上</strong></p>
+<p>之后写好文章就git commit 再push 爽不爽</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2016/05/20/study-Hipster/" itemprop="url">
+                  study-Hipster
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-20T14:02:31+08:00" content="2016-05-20">
+              2016-05-20
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>jhipster 学习笔记</p>
+<p><a href="http://jhipster.github.io/" target="_blank" rel="external">jhipster</a> 是一个用 <a href="http://yeoman.io/" target="_blank" rel="external">yeoman</a> 构建的webApp生成器。</p>
 
           
         
@@ -449,13 +565,20 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
