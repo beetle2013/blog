@@ -1037,7 +1037,7 @@ pre .javascript .function {
 }
 @media (max-width: 767px) {
   .posts-expand {
-    margin: 0 20px;
+    margin: 0;
   }
   .post-body pre,
   .post-body .highlight {
@@ -1099,7 +1099,7 @@ pre .javascript .function {
 }
 @media (max-width: 767px) {
   .posts-collapse {
-    margin: 0;
+    margin: 0 20px;
   }
   .posts-collapse .post-title,
   .posts-collapse .post-meta {
@@ -1549,7 +1549,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ab26d0;
+  background: #54e3ff;
 }
 .links-of-blogroll {
   font-size: 13px;
