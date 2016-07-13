@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>CSRF-protection-with-angularjs-spring-security | 走向前端</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTTP协议无状态HTTP协议是无状态的，这意味着每个请求都是独立的，而现代网页应用有大量的交互，交互需要承前启后，比如保持我的登陆状态、保持我的购物车数据。当前有两种用于保持HTTP状态的主要技术，一个是Cookie，而另一个则是Session。Cookie主要用于客户端，而Session主要在服务器端。Cookie是保存在硬盘上的文本文件，浏览器会去读写它。cookie数据始终在同源的http">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSRF-protection-with-angularjs-spring-security">
+<meta property="og:url" content="http://beetle2013.github.io/blog/2016/07/12/CSRF-protection-with-angularjs-spring-security/index.html">
+<meta property="og:site_name" content="走向前端">
+<meta property="og:description" content="HTTP协议无状态HTTP协议是无状态的，这意味着每个请求都是独立的，而现代网页应用有大量的交互，交互需要承前启后，比如保持我的登陆状态、保持我的购物车数据。当前有两种用于保持HTTP状态的主要技术，一个是Cookie，而另一个则是Session。Cookie主要用于客户端，而Session主要在服务器端。Cookie是保存在硬盘上的文本文件，浏览器会去读写它。cookie数据始终在同源的http">
+<meta property="og:updated_time" content="2016-07-13T09:33:45.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSRF-protection-with-angularjs-spring-security">
+<meta name="twitter:description" content="HTTP协议无状态HTTP协议是无状态的，这意味着每个请求都是独立的，而现代网页应用有大量的交互，交互需要承前启后，比如保持我的登陆状态、保持我的购物车数据。当前有两种用于保持HTTP状态的主要技术，一个是Cookie，而另一个则是Session。Cookie主要用于客户端，而Session主要在服务器端。Cookie是保存在硬盘上的文本文件，浏览器会去读写它。cookie数据始终在同源的http">
+  
+    <link rel="alternative" href="/atom.xml" title="走向前端" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/blog" class="profilepic">
+			
+			<img lazy-src="http://beetle2013.github.io/blog/img/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/blog">beetle2013</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/blog/">主页</a></li>
+				        
+							<li><a href="/blog/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/beetle2013" title="github">github</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/beetle2015" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/blog/tags/angularjs/" style="font-size: 20px;">angularjs</a> <a href="/blog/tags/csrf/" style="font-size: 10px;">csrf</a> <a href="/blog/tags/date/" style="font-size: 10px;">date</a> <a href="/blog/tags/form/" style="font-size: 10px;">form</a> <a href="/blog/tags/html/" style="font-size: 10px;">html</a> <a href="/blog/tags/interview/" style="font-size: 10px;">interview</a> <a href="/blog/tags/java/" style="font-size: 10px;">java</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/questions/" style="font-size: 10px;">questions</a> <a href="/blog/tags/spring-security/" style="font-size: 10px;">spring-security</a> <a href="/blog/tags/technology/" style="font-size: 10px;">technology</a> <a href="/blog/tags/time/" style="font-size: 10px;">time</a> <a href="/blog/tags/trend/" style="font-size: 10px;">trend</a> <a href="/blog/tags/validation/" style="font-size: 10px;">validation</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">前端程序员，热爱开源，喜欢分享，欢迎关注</div>
+					<img src="/blog/img/qrcode.jpg" class="" style="width: 80%;">
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">beetle2013</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://beetle2013.github.io/blog/img/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">beetle2013</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/blog/">主页</a></li>
+		        
+					<li><a href="/blog/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/beetle2013" title="github">github</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/beetle2015" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-CSRF-protection-with-angularjs-spring-security" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/blog/2016/07/12/CSRF-protection-with-angularjs-spring-security/" class="article-date">
+  	<time datetime="2016-07-12T07:52:38.000Z" itemprop="datePublished">2016-07-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CSRF-protection-with-angularjs-spring-security
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/angularjs/">angularjs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/csrf/">csrf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/spring-security/">spring-security</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="HTTP协议无状态"><a href="#HTTP协议无状态" class="headerlink" title="HTTP协议无状态"></a>HTTP协议无状态</h2><p>HTTP协议是无状态的，这意味着每个请求都是独立的，而现代网页应用有大量的交互，交互需要承前启后，比如保持我的登陆状态、保持我的购物车数据。当前有两种用于保持HTTP状态的主要技术，一个是<strong>Cookie</strong>，而另一个则是<strong>Session</strong>。Cookie主要用于客户端，而Session主要在服务器端。<br>Cookie是保存在硬盘上的文本文件，浏览器会去读写它。cookie数据始终在同源的http请求中携带（即使不需要），既会在浏览器和服务器间来回传递。<br><a id="more"></a></p>
+<p>例子：<br>在登陆页登陆成功时，将登陆成功的状态保存在Cookie中，在后续的操作中，从Cookie中获取我们是否已登陆的状态，从而决定我们能执行哪些操作。<br>我们在首页点击购买时，将商品信息保存在Cookie中，当我们转到购物车页面时，获取Cookie中的商品信息，并在页面上显示出来。<br>Session通常代表了一个服务器端的连接，是一段运行中的程序，通常每一个Session有一个ID，通常Session会与Cookie一起使用<br>例子；<br>在Cookie中我们保存SessionID，当与服务器连接时，服务器根据ID切换到对应的Session，这里保留了所有的用户状态。</p>
+<h2 id="什么是CSRF，如何防范？"><a href="#什么是CSRF，如何防范？" class="headerlink" title="什么是CSRF，如何防范？"></a>什么是CSRF，如何防范？</h2><p>CSRF（Cross-site request forgery）跨站请求攻击，是一种网络攻击方式，该攻击可以在受害者毫不知情的情况下以受害者名义伪造请求发送给受攻击站点，从而在未授权的情况下执行在权限保护之下的操作。<br>例子；<br>我们访问一个银行网站，www.bank.com，登陆成功后，访问www.bank.com/transfer，可以进行转帐，如果没有关闭浏览器，在客户端和服务器端都保存了我们的登陆状态，这时去访问另一个网站，而那个网站的页面上有这样一个标签&lt;img src=’www.bank.com/transfer’ /&gt;，银行服务器端会判定这次请求合法，从而转帐成功。这就是CSRF攻击。<br>要防范CSRF攻击，我们在客户端的请求要加一些攻击者没法提供的信息给服务器，由服务器判断。比如在表单、Cookie中加入token（在计算机身份认证中是令牌的意思）数据，服务器端进行验证。每次请求如果加一个验证码完全解决了CSRF攻击的问题，但是用户体验差。</p>
+<h2 id="AngularJS是如何做的"><a href="#AngularJS是如何做的" class="headerlink" title="AngularJS是如何做的"></a>AngularJS是如何做的</h2><p>不用做什么事情，$http服务会自动完成了两件事：<br>在当前域名下寻找名字为XSRF-TOKEN的cookie<br>如果找到，读取它的值，并把它加到http请求的头部X-XSRF-TOKEN字段。<br>如果需要，可以通过$httpProvider改变这两个默认名字。<br>用Cookie存放token的可以起到作用的原理是，<strong>正常情况下，网页只能获取所在域的Cookie</strong>。<br>代码片断：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//angularjs.js</span></span><br><span class="line">xsrfCookieName: <span class="string">'XSRF-TOKEN'</span>,</span><br><span class="line">xsrfHeaderName: <span class="string">'X-XSRF-TOKEN'</span>,</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> xsrfValue = urlIsSameOrigin(config.url)? $$cookieReader()[config.xsrfCookieName || defaults.xsrfCookieName]: <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">if</span> (xsrfValue) &#123;</span><br><span class="line">   reqHeaders[(config.xsrfHeaderName || defaults.xsrfHeaderName)] = xsrfValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Spring-Security是如何做的"><a href="#Spring-Security是如何做的" class="headerlink" title="Spring Security是如何做的"></a>Spring Security是如何做的</h2><p>Spring Security是Spring的子项目，提供了一揽子web安全解决方案，它能生成token，并在之后通过验证这个token来判断请求是否合法。在这里我们生成带token信息的Cookie，事实上我们这么做是为了配合AngularJS的方案，因为token也可以放在其它地方，比如表单中。<br>代码片断：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Order</span>(SecurityProperties.ACCESS_OVERRIDE_ORDER)</span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityConfiguration</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http.httpBasic().and().authorizeRequests()</span><br><span class="line">        	.antMatchers(<span class="string">"/**"</span>).permitAll().anyRequest()</span><br><span class="line">			.authenticated().and().csrf()</span><br><span class="line">			.csrfTokenRepository(csrfTokenRepository()).and()</span><br><span class="line">			.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> Filter <span class="title">csrfHeaderFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> OncePerRequestFilter() &#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doFilterInternal</span><span class="params">(HttpServletRequest request,</span><br><span class="line">			HttpServletResponse response, FilterChain filterChain)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">				CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());</span><br><span class="line">					<span class="keyword">if</span> (csrf != <span class="keyword">null</span>) &#123;</span><br><span class="line">						Cookie cookie = WebUtils.getCookie(request, <span class="string">"XSRF-TOKEN"</span>);</span><br><span class="line">						String token = csrf.getToken();</span><br><span class="line">						<span class="keyword">if</span> (cookie == <span class="keyword">null</span> || token != <span class="keyword">null</span>	&amp;&amp; !token.equals(cookie.getValue())) &#123;</span><br><span class="line">							cookie = <span class="keyword">new</span> Cookie(<span class="string">"XSRF-TOKEN"</span>, token);</span><br><span class="line">							cookie.setPath(<span class="string">"/"</span>);</span><br><span class="line">							response.addCookie(cookie);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					filterChain.doFilter(request, response);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> CsrfTokenRepository <span class="title">csrfTokenRepository</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		HttpSessionCsrfTokenRepository repository = <span class="keyword">new</span> HttpSessionCsrfTokenRepository();</span><br><span class="line">		repository.setHeaderName(<span class="string">"X-XSRF-TOKEN"</span>);</span><br><span class="line">		<span class="keyword">return</span> repository;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>CSRF只是网络安全中的一个例子，网络攻击的危害从来没有像现在这样严重，近年来频发的互联网安全事件就是证明。作为一名web开发者，要做到防范于未然，开发出更安全的web应用。</p>
+<p> 原创文章 欢迎转载但请注明出处。<a href="http://beetle2013.github.io/blog/">http://beetle2013.github.io/blog/</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2016/07/11/front-end-interview-questions-a/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">front-end-interview-questions-a</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="CSRF-protection-with-angularjs-spring-security" data-title="CSRF-protection-with-angularjs-spring-security" data-url="http://beetle2013.github.io/blog/blog/2016/07/12/CSRF-protection-with-angularjs-spring-security/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 beetle2013
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/blog/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-78066553-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [["\\(","\\)"]],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
